@@ -55,10 +55,3 @@ A deterministic, gate-level 16-bit RISC microprocessor and System-on-Chip (SoC) 
 2. Make sure the target device is set to **GW2AR-LV18QN88C8/I7**.
 3. Run **Synthesize** and **Place & Route**.
 4. Open **Gowin Programmer** and flash the bitstream (`.fs`) to SRAM or internal Flash over USB-C.
-
-### Option B: Open-Source CLI Toolchain (Yosys + nextpnr)
-```bash
-cd fpga/open_toolchain
-make synth     # Run Yosys synthesis for Gowin
-make pnr       # Run nextpnr-gowin --device GW2AR-LV18QN88C8/I7
-make flash     # Flash to Tang Nano 20K via openFPGALoader -b tangnano20k
