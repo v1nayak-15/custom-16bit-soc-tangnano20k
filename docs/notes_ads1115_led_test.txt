@@ -1,0 +1,19 @@
+ADS1115 + external LED memory-mapped test integration
+
+Memory map:
+  0x6010 write: channel select bits [1:0] (0=AIN0, 1=AIN1, 2=AIN2, 3=AIN3)
+  0x6011 write: write bit 0 = start conversion
+  0x6011 read : bit 0 = busy, bit 1 = data_valid
+  0x6012 read : signed 16-bit ADS1115 conversion result
+  0x6014 write: 16-bit value displayed on ext_led[15:0]
+
+The CST provided by the user already defines ext_led[15:0] pins. This project top now exposes
+output wire [15:0] ext_led and drives it from the memory-mapped LED register.
+
+IMPORTANT:
+- ADS1115 SCL/SDA package pin assignments are deliberately left as placeholders. Replace them
+  with valid unused package pins for the exact board before compiling.
+- External 4.7k pull-ups from SDA/SCL to 3.3V are required.
+- This is an unverified source edit; Gowin synthesis and physical testing have not been run.
+- The existing supplied ADS1115 controller's control/data-valid behavior should be checked in
+  simulation before relying on the polling assembly.

@@ -1,0 +1,22 @@
+ADS1115 addition to the USB-keyboard-removed Tang Nano 20K project
+
+Added:
+- ads1115_i2c_master.v (the supplied I2C master)
+- top-level inout ports ads_scl and ads_sda
+- an instance of ads1115_i2c_master in top.v
+
+Important limitations:
+- The module's CPU-facing control interface is not yet memory-mapped to the Hack CPU.
+  channel_sel_wr and control_wr are tied low, so the ADC will remain idle and no
+  conversion will start in this integration.
+- Before using the board, assign ads_scl and ads_sda to valid unused FPGA package
+  pins in tangnano20k.cst for your exact Tang Nano 20K board revision.
+- Use external pull-up resistors (typically 4.7 kΩ) from SDA and SCL to 3.3 V.
+- Connect ADS1115 ADDR to GND for I2C address 0x48, and share ground.
+- The ADS1115 I2C pins are open-drain; do not drive them directly high.
+- No Gowin synthesis or physical FPGA test has been performed.
+
+Next integration step for CPU control:
+- Add memory-mapped channel-select, control/status, and data registers to the
+  existing memory/computer bus, then connect their read/write strobes to this
+  module. No existing CPU/GPU/HDMI/UART behavior has been intentionally changed.

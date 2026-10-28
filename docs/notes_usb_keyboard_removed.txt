@@ -1,0 +1,20 @@
+USB keyboard support removal
+=============================
+
+Changes:
+- Removed usb_dp and usb_dm top-level ports.
+- Removed USB PLL and USB HID host instantiation from top.v.
+- Removed USB keyboard report/key register update logic.
+- Memory-mapped keyboard value remains compatible at 0x7FFF and reads as zero.
+- LED[5] is tied low because USB report status no longer exists.
+- Removed USB D+/D- pin constraints from tangnano20k.cst.
+- Kept uart_rx and uart_loader for UART program loading.
+- Kept CPU, SDRAM, GPU, framebuffer, HDMI/TMDS and program RAM files unchanged.
+
+Important:
+Keyboard input is currently disabled; this removes USB keyboard support, it does
+not add a replacement keyboard interface. Do not remove uart_rx: it is used by
+the existing UART program loader. The Gowin_USB_PLL file is intentionally omitted.
+
+The supplied source set does not include usb_hid_host source, so this bundle
+removes its references from top.v.
